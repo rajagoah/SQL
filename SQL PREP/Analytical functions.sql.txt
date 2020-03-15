@@ -168,3 +168,23 @@ SELECT DEPARTMENT_ID, SALARY FROM EMPLOYEE
                                                     , 20 AS Payroll
                                                     , 30 AS IT
                                                     , null AS UNASSIGNED));
+
+---------------
+
+CREATE TABLE ORDERS_2
+(
+ORDER_ID VARCHAR2(3)
+, ITEM VARCHAR2(3)
+, QNT INTEGER);
+
+INSERT INTO ORDERS_2
+VALUES('O1','A1',5);
+INSERT INTO ORDERS_2
+VALUES('O2','A2',1);
+INSERT INTO ORDERS_2
+VALUES('O3','A3',3);
+
+---------------
+select Order_Id, Item, 1
+from ORDERS
+expand on period (current_date, current_date + Qty) as pd;

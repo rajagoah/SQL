@@ -1,0 +1,21 @@
+--NESTING MULTIPLE DECLARE STATEMENTS
+--declaration statement
+DECLARE
+L_MESSAGE_1 VARCHAR2(100) := 'HELLO';
+
+--begin statement
+BEGIN
+    --nested declare statement	
+    DECLARE 
+    L_MESSAGE_2 VARCHAR2(100) := L_MESSAGE_1 ||' '||'WORLD!!!';
+    
+    --nested begin statement that executes the DBMS_OUTPUT.put_line() command
+    BEGIN
+    DBMS_OUTPUT.PUT_LINE(L_MESSAGE_2);
+
+--exception handling layer
+EXCEPTION
+    WHEN OTHERS
+    THEN DBMS_OUTPUT.PUT_LINE(SQLERRM);
+    END;
+END;

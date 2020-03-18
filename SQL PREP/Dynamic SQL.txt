@@ -19,3 +19,30 @@ EXCEPTION
     THEN DBMS_OUTPUT.PUT_LINE(SQLERRM);
     END;
 END;
+
+
+*******************************************************************************
+
+
+--procedures allow us to create named blocks of executables that can be called within a BEGIN and END block. You can think of a procedure as a function or method from the programming paradigm.
+--in the below example, 'HELLO_WORLD' is the name of the procedure
+
+--CREATING A PROCEDURE
+CREATE OR REPLACE PROCEDURE
+HELLO_WORLD
+IS
+    L_MESSAGE VARCHAR2(100) := 'HELLO WORLD!!!';
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(L_MESSAGE);
+END;
+
+--the below executable simply calls the HELLO_WORLD procedure and executes what is mentioned inside the procedure.
+BEGIN
+    HELLO_WORLD;
+END;
+
+
+*******************************************************************************
+
+
+

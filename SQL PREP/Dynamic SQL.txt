@@ -11,12 +11,12 @@ BEGIN
     
     --nested begin statement that executes the DBMS_OUTPUT.put_line() command
     BEGIN
-    DBMS_OUTPUT.PUT_LINE(L_MESSAGE_2);
+    DBMS_OUTPUT.put_line(L_MESSAGE_2);
 
 --exception handling layer
 EXCEPTION
     WHEN OTHERS
-    THEN DBMS_OUTPUT.PUT_LINE(SQLERRM);
+    THEN DBMS_OUTPUT.put_lineSQLERRM);
     END;
 END;
 
@@ -33,7 +33,7 @@ HELLO_WORLD
 IS
     L_MESSAGE VARCHAR2(100) := 'HELLO WORLD!!!';
 BEGIN
-    DBMS_OUTPUT.PUT_LINE(L_MESSAGE);
+    DBMS_OUTPUT.put_line(L_MESSAGE);
 END;
 
 --the below executable simply calls the HELLO_WORLD procedure and executes what is mentioned inside the procedure.
@@ -44,5 +44,28 @@ END;
 
 *******************************************************************************
 
+
+PROCEDURE
+Procedures are used to perform an action 
+FUNCTION
+Functions are used to perform a calculation and return a value
+PARAMETER
+Complex sub-programs have parameters to pass values or information into the sub-program. They enable to sub-program to be flexible
+
+EXAMPLE
+Suppose we want to display "Hello Universe!" Instead of "Hello World!", we can keep the string "Hello" static and parametric the "world or universe" part.
+
+CREATE OR REPLACE PROCEDURE HELLO_PLACE (IN_PLACE in VARCHAR2)
+IS
+	L_MESSAGE VARCHAR2(100);
+BEGIN
+	L_MESSAGE := 'HELLO '|| IN_PLACE;
+	DBMS_OUTPUT.put_line(L_MESSAGE);
+End HELLO_PLACE;
+
+BEGIN
+	HELLO_PLACE('WORLD!!');
+	HELLO_PLACE('UNIVERSE!!');
+END;
 
 

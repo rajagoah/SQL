@@ -1,58 +1,18 @@
---NESTING MULTIPLE DECLARE STATEMENTS
---declaration statement
-DECLARE
-L_MESSAGE_1 VARCHAR2(100) := 'HELLO';
-
---begin statement
-BEGIN
-    --nested declare statement	
-    DECLARE 
-    L_MESSAGE_2 VARCHAR2(100) := L_MESSAGE_1 ||' '||'WORLD!!!';
-    
-    --nested begin statement that executes the DBMS_OUTPUT.put_line() command
-    BEGIN
-    DBMS_OUTPUT.put_line(L_MESSAGE_2);
-
---exception handling layer
-EXCEPTION
-    WHEN OTHERS
-    THEN DBMS_OUTPUT.put_lineSQLERRM);
-    END;
-END;
-
-
-*******************************************************************************
-
-
---procedures allow us to create named blocks of executables that can be called within a BEGIN and END block. You can think of a procedure as a function or method from the programming paradigm.
---in the below example, 'HELLO_WORLD' is the name of the procedure
-
---CREATING A PROCEDURE
-CREATE OR REPLACE PROCEDURE
-HELLO_WORLD
-IS
-    L_MESSAGE VARCHAR2(100) := 'HELLO WORLD!!!';
-BEGIN
-    DBMS_OUTPUT.put_line(L_MESSAGE);
-END;
-
---the below executable simply calls the HELLO_WORLD procedure and executes what is mentioned inside the procedure.
-BEGIN
-    HELLO_WORLD;
-END;
-
-
-*******************************************************************************
-
-
 PROCEDURE
 Procedures are used to perform an action 
+
 FUNCTION
 Functions are used to perform a calculation and return a value
+
 PARAMETER
 Complex sub-programs have parameters to pass values or information into the sub-program. They enable to sub-program to be flexible
 
-EXAMPLE
+There are three parts of the parameter, 
+1. parameter_name --> the name of the parameter
+2. parameter_mode --> IN = read only
+3. datatype --> the data type of the parameter
+
+EXAMPLE OF A PROCEDURE
 Suppose we want to display "Hello Universe!" Instead of "Hello World!", we can keep the string "Hello" static and parametric the "world or universe" part.
 
 CREATE OR REPLACE PROCEDURE HELLO_PLACE (IN_PLACE in VARCHAR2)
@@ -68,4 +28,15 @@ BEGIN
 	HELLO_PLACE('UNIVERSE!!');
 END;
 
+EXAMPLE OF A FUNCTION
+CREATE OR REPLACE FUNCTION HELLO_PLACE (IN_PLACE IN VARCHAR2)
+	RETURN VARCHAR2;
+IS
+BEGIN
+	RETURN 'HELLO '||IN_PLACE;	
+END;
 
+DIFFERENCE BETWEEN PROCEDURE AND FUNCTION BASED ON THE ABOVE EXAMPLES:
+1. The function defines the value being returned and not the action being performed.
+2. The body of the function has a RETURN statement which returns the operation being performed.
+3. The RETURN statement in the creation block of the function, specifies the data type of value being returned.

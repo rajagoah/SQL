@@ -1,3 +1,7 @@
+
+--****************************************--****************************************
+				PL/SQL BASICS
+--****************************************--****************************************
 PROCEDURE
 Procedures are used to perform an action 
 
@@ -41,9 +45,12 @@ DIFFERENCE BETWEEN PROCEDURE AND FUNCTION BASED ON THE ABOVE EXAMPLES:
 2. The body of the function has a RETURN statement which returns the operation being performed.
 3. The RETURN statement in the creation block of the function, specifies the data type of value being returned.
 
-
-RUNNING SQL INSIDE PL/SQL BLOCK
+--****************************************--****************************************
+			RUNNING SQL INSIDE PL/SQL BLOCK
+--****************************************--****************************************
 We can run SQL statements within the PL/SQL block, like so:
+
+Example:
 
 DECLARE
     L_NAME EMPLOYEE.LAST_NAME%TYPE;
@@ -54,5 +61,6 @@ BEGIN
     DBMS_OUTPUT.put_line(L_NAME);
 END;
 
+NOTES:
 1. The declare block, declares a variable called "L_NAME" which will be used to store the last name of the employee. The "EMPLOYEE.LAST_NAME%TYPE" clause assign the variable the data type associated with the LAST_NAME field in the employee table.
 2. The begin block, has a SQL statement that inserts the last name of the employee with the id=28 in to the variable "L_NAME". Additionally, it outputs the L_NAME to the console through the command in the next line

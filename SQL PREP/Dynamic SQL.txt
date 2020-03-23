@@ -50,7 +50,7 @@ DIFFERENCE BETWEEN PROCEDURE AND FUNCTION BASED ON THE ABOVE EXAMPLES:
 --****************************************--****************************************
 We can run SQL statements within the PL/SQL block, like so:
 
-Example:
+Example 1:
 
 DECLARE
     L_NAME EMPLOYEE.LAST_NAME%TYPE;
@@ -64,3 +64,14 @@ END;
 NOTES:
 1. The declare block, declares a variable called "L_NAME" which will be used to store the last name of the employee. The "EMPLOYEE.LAST_NAME%TYPE" clause assign the variable the data type associated with the LAST_NAME field in the employee table.
 2. The begin block, has a SQL statement that inserts the last name of the employee with the id=28 in to the variable "L_NAME". Additionally, it outputs the L_NAME to the console through the command in the next line
+
+Example 2: updating salary of all employees in department id 10.
+
+DECLARE
+    L_DEP EMPLOYEE.DEPARTMENT_ID%TYPE := 10;
+BEGIN
+    UPDATE EMPLOYEE
+    SET EMPLOYEE.SALARY = EMPLOYEE.SALARY*1.2
+    WHERE EMPLOYEE.DEPARTMENT_ID = L_DEP;
+    DBMS_OUTPUT.put_line (SQL%ROWCOUNT);
+END;

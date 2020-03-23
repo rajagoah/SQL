@@ -75,3 +75,10 @@ BEGIN
     WHERE EMPLOYEE.DEPARTMENT_ID = L_DEP;
     DBMS_OUTPUT.put_line (SQL%ROWCOUNT);
 END;
+
+--****************************************--****************************************
+				WHY NEST BLOCKS
+--****************************************--****************************************
+Nesting blocks offers the following two advantages:
+1. Defers the allocation of memory to variable only when the nested declare block is executed.
+2. Allows the continued execution of the outer block even if the inner nested block has an exception

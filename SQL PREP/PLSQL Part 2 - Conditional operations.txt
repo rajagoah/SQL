@@ -1,0 +1,7 @@
+CONTROLLING FLOWS
+To control the flow of execution, we use IF/ELSE condition statements. We may also use CASE statements.
+
+There are 3 flavours of IF/ELSE conditional statements
+1. IF THEN END IF;
+2. IF THEN ELSE END IF;
+3. IF THEN ELSIF ELSE END IF;

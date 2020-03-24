@@ -1,0 +1,84 @@
+
+--****************************************--****************************************
+				PL/SQL BASICS
+--****************************************--****************************************
+PROCEDURE
+Procedures are used to perform an action 
+
+FUNCTION
+Functions are used to perform a calculation and return a value
+
+PARAMETER
+Complex sub-programs have parameters to pass values or information into the sub-program. They enable to sub-program to be flexible
+
+There are three parts of the parameter, 
+1. parameter_name --> the name of the parameter
+2. parameter_mode --> IN = read only
+3. datatype --> the data type of the parameter
+
+EXAMPLE OF A PROCEDURE
+Suppose we want to display "Hello Universe!" Instead of "Hello World!", we can keep the string "Hello" static and parametric the "world or universe" part.
+
+CREATE OR REPLACE PROCEDURE HELLO_PLACE (IN_PLACE in VARCHAR2)
+IS
+	L_MESSAGE VARCHAR2(100);
+BEGIN
+	L_MESSAGE := 'HELLO '|| IN_PLACE;
+	DBMS_OUTPUT.put_line(L_MESSAGE);
+End HELLO_PLACE;
+
+BEGIN
+	HELLO_PLACE('WORLD!!');
+	HELLO_PLACE('UNIVERSE!!');
+END;
+
+EXAMPLE OF A FUNCTION
+CREATE OR REPLACE FUNCTION HELLO_PLACE (IN_PLACE IN VARCHAR2)
+	RETURN VARCHAR2;
+IS
+BEGIN
+	RETURN 'HELLO '||IN_PLACE;	
+END;
+
+DIFFERENCE BETWEEN PROCEDURE AND FUNCTION BASED ON THE ABOVE EXAMPLES:
+1. The function defines the value being returned and not the action being performed.
+2. The body of the function has a RETURN statement which returns the operation being performed.
+3. The RETURN statement in the creation block of the function, specifies the data type of value being returned.
+
+--****************************************--****************************************
+			RUNNING SQL INSIDE PL/SQL BLOCK
+--****************************************--****************************************
+We can run SQL statements within the PL/SQL block, like so:
+
+Example 1:
+
+DECLARE
+    L_NAME EMPLOYEE.LAST_NAME%TYPE;
+BEGIN    
+    SELECT LAST_NAME INTO L_NAME FROM EMPLOYEE
+    WHERE EMPLOYEE_ID = 28;
+    
+    DBMS_OUTPUT.put_line(L_NAME);
+END;
+
+NOTES:
+1. The declare block, declares a variable called "L_NAME" which will be used to store the last name of the employee. The "EMPLOYEE.LAST_NAME%TYPE" clause assign the variable the data type associated with the LAST_NAME field in the employee table.
+2. The begin block, has a SQL statement that inserts the last name of the employee with the id=28 in to the variable "L_NAME". Additionally, it outputs the L_NAME to the console through the command in the next line
+
+Example 2: updating salary of all employees in department id 10.
+
+DECLARE
+    L_DEP EMPLOYEE.DEPARTMENT_ID%TYPE := 10;
+BEGIN
+    UPDATE EMPLOYEE
+    SET EMPLOYEE.SALARY = EMPLOYEE.SALARY*1.2
+    WHERE EMPLOYEE.DEPARTMENT_ID = L_DEP;
+    DBMS_OUTPUT.put_line (SQL%ROWCOUNT);
+END;
+
+--****************************************--****************************************
+				WHY NEST BLOCKS
+--****************************************--****************************************
+Nesting blocks offers the following two advantages:
+1. Defers the allocation of memory to variable only when the nested declare block is executed.
+2. Allows the continued execution of the outer block even if the inner nested block has an exception

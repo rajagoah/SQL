@@ -5,3 +5,30 @@ There are 3 flavours of IF/ELSE conditional statements
 1. IF THEN END IF;
 2. IF THEN ELSE END IF;
 3. IF THEN ELSIF ELSE END IF;
+
+Case statements are an alternative to the 3rd flavour of the IF/ELSE conditional statements as they make the code more readable.
+There are 2 forms of CASE statements:
+1. Simple CASE statements
+	A simple CASE statement allows the program to choose a flow based on the result of the expression mentioned after the word CASE. The syntax is:
+	CASE <Expression>
+	WHEN <Result_1> THEN <Action_1>
+	WHEN <Result_2> THEN <Action_2>
+	...
+	ELSE <Else statement>
+	END;
+2. Searched CASE statements
+	A searched CASE statement allows the program to sequentially go through all the WHEN conditions and execute the piece of logic in the THEN statement. The syntax is:
+	CASE
+	WHEN <Expression_1> THEN <Action_1> 
+	WHEN <Expression_2> THEN <Action_2> 
+	WHEN <Expression_3> THEN <Action_3> 
+	ELSE <Else statement>
+	END;
+
+DELCARE
+	L_C3 TAB.C3%TYPE 
+BEGIN
+	SELECT TAB.C3 IN L_C3
+	FROM TAB;
+	DBMS_OUTPUT.put_line(L_C3);
+END; 

@@ -4,4 +4,34 @@ Variables that act as parameters are called Bind variables.
 Substitution vs binding
 Substitution --> When we have a SQL statement with a substitution variable represented with an '&', the interface being used to parse through the statement reads this substitution variable and prompts for the user to enter a suitable value BEFORE executing it.
 
-Binding --> When we have SQL statement with a binding variable represented with a ':', the interface being used parses it and implicitly recognises that this statement has a binding variable and it will automatically apply the value being supplied to the binding variable through the arguments to the function
+Binding --> When we have SQL statement with a binding variable represented with a ':', the interface being used parses it and implicitly recognises that this statement has a binding variable and it will automatically apply the value being supplied to the binding variable through the arguments to the function.
+
+SUBSTITUTION SYNTAX:
+
+	CREATE OR REPLACE FUNCTION MY_FUNC 
+		RETURN VARCHAR2
+		IS
+		D_NAME VARCHAR2(100);	
+	BEGIN
+		SELECT DEPT_NAME 
+		INTO D_NAME 
+		FROM DEPARTMENT
+		WHERE DEPT_NO = &DEPT_NO;
+		
+		RETURN D_NAME;
+	END;
+
+NOTE:
+Here the &DEPT_NO is the substitution variable. When the interface parses this SQL statement it reads this substitution variable and then prompts the user to enter the value of the department number.
+
+BINDING SYNTAX:
+	CREATE OR REPLACE FUNCTION MY_FUNC(P_D_NO NUMBER)
+		RETURN VARCHAR2
+		IS
+		V_D_NAME VARCHAR2(100);
+		V_D_SQL  VARCHAR2(10000);
+	BEGIN
+		V_D_SQL = 'SELECT DEPT_NAME FROM DEPARTMENT WHERE DEPT_NO = :1';
+		EXECUTE IMMEDIATE V_D_SQL INTO V_D_NAME USING P_D_NO; 
+		RETURN D_NAME;
+	END;

@@ -35,3 +35,43 @@ BINDING SYNTAX:
 		EXECUTE IMMEDIATE V_D_SQL INTO V_D_NAME USING P_D_NO; 
 		RETURN D_NAME;
 	END;
+
+Attempt 1 --> the Amazon interview question
+-------
+QUESTION 2
+WRITE A SQL WHICH WILL DISPLAY ONLY THOSE RECORDS THAT HAS C3=2. IF THERE IS NO C3=2 IT WILL DISPLAY THE ENTIRE DATASET
+C1 C2 C3
+1  2  2
+9  3  3
+8  1  4
+
+ANSWER:
+
+CREATE TABLE TB(
+COL1 CHAR(1)
+, COL2 CHAR(1)
+, COL3 CHAR(1));
+
+INSERT INTO TB 
+VALUES ('1','2','2');
+INSERT INTO TB 
+VALUES ('9','3','3');
+INSERT INTO TB 
+VALUES ('8','1','4');
+
+CREATE OR REPLACE FUNCTION TEST_FUNC (P_COL3 IN CHAR) 
+    RETURN VARCHAR2
+    IS
+    V_COL3 VARCHAR2(1);
+    V_SQL VARCHAR2(10000);
+BEGIN
+    V_SQL := 'select col3 from tb where col3 = :1';
+    EXECUTE IMMEDIATE V_SQL INTO V_COL3 USING P_COL3;
+    RETURN V_COL3;
+END;
+
+Read the following:
+https://blogs.oracle.com/oraclemagazine/using-dynamic-sql-for-multirow-queries
+https://community.oracle.com/docs/DOC-915518
+https://docs.oracle.com/cd/E11882_01/appdev.112/e25519/dynamic.htm#LNPLS01115
+https://blogs.oracle.com/oraclemagazine/controlling-the-flow-of-execution

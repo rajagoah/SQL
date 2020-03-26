@@ -1,0 +1,39 @@
+----------------------------------------------------
+--Writing a CREATE block to create a function  -----
+----------------------------------------------------
+
+CREATE OR REPLACE FUNCTION MY_TB_DECIDER (NBR IN VARCHAR2)
+RETURN VARCHAR2
+IS
+V_COL3 VARCHAR2(30);
+COL_CURSOR VARCHAR2(1);
+
+CURSOR C1 IS
+SELECT COL3 FROM TB WHERE COL3 = NBR;
+
+BEGIN
+OPEN  C1;
+FETCH C1 INTO COL_CURSOR;
+CLOSE C1;
+
+IF COL_CURSOR = '2' THEN V_COL3 := 'HAS  2 IN COL3';
+ELSIF COL_CURSOR IS NULL THEN V_COL3 := ' DOESNT HAVE 2 IN COL3';
+ELSE V_COL3 := 'NO 2 IN COL3';
+END IF;
+RETURN V_COL3;
+END;
+
+
+----------------------------------------------------
+--Writing a begin block to call the above function--
+----------------------------------------------------
+SET SERVEROUTPUT ON
+BEGIN
+DBMS_OUTPUT.PUT_LINE(MY_TB_DECIDER('2'));
+END;
+
+SELECT * FROM TB WHERE COL3='2';
+
+UPDATE TB
+SET COL3='9'
+WHERE COL1='1';

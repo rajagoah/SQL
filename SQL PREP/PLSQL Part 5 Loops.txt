@@ -8,8 +8,7 @@ The structure of FOR loop is as follows:
 
 Here,
 Index --> is the implicit variable that is local to the for loop
-Lower_bound /Upper_bound --> lower and upper limit of the range within which 				the loop has to operate.
-				Both these values are stored as temporary 				PLS_INTEGER.
+Lower_bound /Upper_bound --> lower and upper limit of the range within which the loop has to operate. Both these values are stored as temporary PLS_INTEGER.
 
 EXAMPLE:
 SET SERVEROUTPUT ON

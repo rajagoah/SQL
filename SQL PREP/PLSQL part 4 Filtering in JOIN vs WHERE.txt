@@ -28,3 +28,4 @@ a. Both the queries are distinctly different queries requesting for distinctly d
 b. The query in 'A' filters on the result set returned after the join condition
 C. The query in 'B' filters on the join table before the join is performed.
 d. Only in case of an INNER JOIN, the result for both the queries will be the same. But if it is an OUTER JOIN, the results will vary.
+e. The query in 'B' will not return any records where the CANADIAN_IND <> 'N'. Although it may be fine for this situation, it may not always be the case.

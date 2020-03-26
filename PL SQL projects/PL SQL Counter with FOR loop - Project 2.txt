@@ -1,0 +1,25 @@
+----------------------------------------------------
+--Writing a CREATE block to create a counter 1 -----
+----------------------------------------------------
+SET SERVEROUTPUT ON
+BEGIN
+FOR L_COUNTER IN 1 .. 10
+LOOP
+DBMS_OUTPUT.PUT_LINE(L_COUNTER);
+END LOOP;
+END;
+
+
+--------------------------------------------------------------------------
+--Writing a CREATE block to create a counter 2 with stepper variable -----
+--------------------------------------------------------------------------
+SET SERVEROUTPUT ON
+DECLARE
+V_STEPPER FLOAT := 1.5;
+
+BEGIN
+FOR L_COUNTER IN 1 .. 15
+LOOP
+DBMS_OUTPUT.PUT_LINE(L_COUNTER + V_STEPPER);
+END LOOP;
+END;

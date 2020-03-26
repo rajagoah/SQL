@@ -1,0 +1,33 @@
+----------------------------------------------------
+--Writing a CREATE block to create a function ------
+----------------------------------------------------
+
+CREATE OR REPLACE FUNCTION INCOME_LEVEL (EMP_ID IN VARCHAR2)
+RETURN VARCHAR2
+IS
+	INCOME INTEGER;			-- Storing the value returned by the cursor
+	INCOME_LEVEL VARCHAR(20);	-- storing the Income level string 
+
+	CURSOR C1 IS			-- Creating a cursor
+		SELECT SALARY FROM EMPLOYEE
+		WHERE EMPLOYEE_ID = EMP_ID;
+BEGIN
+	OPEN C1;			-- Opening a cursor
+	FETCH C1 INTO INCOME;		-- fetching the cursor values in the INCOME variable declared above
+	CLOSE C1;			-- Closing the cursor
+
+IF INCOME < 50000 THEN	INCOME_LEVEL := 'LOW INCOME'; 	-- start of the conditional statements
+ELSIF INCOME >= 50000 AND INCOME < 100000 THEN INCOME_LEVEL := 'MID INCOME';
+ELSE INCOME_LEVEL := 'HIGH INCOME';
+END IF;
+
+RETURN INCOME_LEVEL;  			-- returning a value
+END;
+
+----------------------------------------------------
+--Writing a begin block to call the above function--
+----------------------------------------------------
+SET SERVEROUTPUT ON			-- ensures the the Dbms_output.put_line() displays text on the console
+BEGIN
+DBMS_OUTPUT.PUT_LINE(INCOME_LEVEL(28));
+END;

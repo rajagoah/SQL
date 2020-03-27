@@ -39,6 +39,9 @@ BEGIN
     
 END;
 
+----------------------------------------------------
+--Writing a begin block to call the above procedure--
+----------------------------------------------------
 BEGIN
 MY_TB_DECIDER_2;
 END;

@@ -25,3 +25,10 @@ end;
 BEGIN
 my_tb_decider_2;
 END;
+
+
+----------------------------------------------------
+--The table the procedure is being called on 	  --
+----------------------------------------------------
+DESCRIBE TB;
+SELECT * FROM TB;

@@ -1,14 +1,24 @@
+--Command to make the PL/SQL to the console
 SET SERVEROUTPUT ON
-CREATE OR REPLACE PROCEDURE AMAZON_INTERVIEW_2
+
+--creating a function. This function accepts an argument
+CREATE OR REPLACE FUNCTION AMAZON_INTERVIEW_2 (ST IN VARCHAR2)
+RETURN VARCHAR2
 IS
-    V_STATES STATES.STATES%TYPE;
+
+    --declaring a variable of data type of value in the states table
+    V_STATES_2 STATES.STATES%TYPE;
+
+--begin block to execute a SQL statement
 BEGIN
-    SELECT STATES INTO V_STATES 
-    FROM STATES WHERE STATES = 'NJ';
-    DBMS_OUTPUT.PUT_LINE(V_STATES);
+    SELECT STATES_2 INTO V_STATES_2 FROM STATES
+    WHERE STATES = ST;
+    RETURN 'THE VALUE IN THE SECOND COLUMNS IS --> '|| V_STATES_2;
 END;
 
+
+--This PLSQL command is being used to call on the function
 SET SERVEROUTPUT ON
 BEGIN
-    AMAZON_INTERVIEW_2;
+    DBMS_OUTPUT.PUT_LINE(AMAZON_INTERVIEW_2('NY'));
 END;

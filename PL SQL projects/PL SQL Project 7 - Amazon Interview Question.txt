@@ -1,3 +1,18 @@
+/*
+STEP 1 --> Create a procedure
+STEP 2 --> a variable of type table should be declared. The general data type of this table should be assigned as VARCHAR2.
+STEP 3 --> in addition to this table variable, there are three other variables that are going t be declared. These three variables are being declared so that they can hold the values in those three cols.
+Note that all the three additional variables should be of the tables datatype
+STEP 4 --> We create an EXECUTE IMMEDIATE command to execute the Dynamic SQL. 
+STEP 5 --> The output of the Dynamic SQL should be BULK COLLECTED INTO the three variables declared above.
+STEP 6 --> to display the rows on console, we make use of a FOR loop. The length of time that the loop will run will be for the number of elements in any one of the variables of table data type.
+STEP 7 --> We will be using DBMS_OUTPUT.PUT_LINE() function
+STEP 8 --> the second BEING END block will be used to call the procedure */
+
+
+
+
+
 CREATE OR REPLACE PROCEDURE AMAZON_INTERVIEW_2
 IS 
 TYPE V_TABLES IS TABLE OF VARCHAR2(10000);

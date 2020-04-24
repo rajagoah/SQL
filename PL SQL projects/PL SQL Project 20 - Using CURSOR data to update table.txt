@@ -11,57 +11,62 @@ DECLARE
     CURSOR C1 IS
         SELECT 
         COALESCE(CAST(DEPARTMENT_ID AS CHAR(3)),'CEO') AS DEPARTMENT
-        , MAX(SALARY) AS MAX_SAL 
+        , MAX(SALARY) AS MAX_SALARY 
         FROM EMPLOYEE
         GROUP BY DEPARTMENT_ID
         ORDER BY DEPARTMENT_ID ASC;    
     V_ROW C1%ROWTYPE;
     
     CURSOR C2 IS
-        SELECT DEPARTMENT, MAX_SALARY
+        SELECT 
+        DEPARTMENT, MAX_SALARY
         FROM EMP_SAL_MAX;    
     V_ROW_2 C2%ROWTYPE;
     
+    CURSOR C3 IS
+        SELECT 
+        COUNT(*) AS CNT 
+        FROM EMP_SAL_MAX;
+    V_ROW_3 NUMBER;
+
 BEGIN
-
-    OPEN C1;
-    OPEN C2;
-    DBMS_OUTPUT.PUT_LINE('CURSOR OPEN');
-    LOOP
-        FETCH C1 INTO V_ROW;
-        EXIT WHEN C1%NOTFOUND;
-        
-        FETCH C2 INTO V_ROW_2;
-        EXIT WHEN C2%NOTFOUND;
-        
-        BEGIN
-            IF V_ROW_2.DEPARTMENT IS NOT NULL
-            THEN
-                DBMS_OUTPUT.PUT_LINE('THE TARGET TABLE IS NOT EMPTY');
+    OPEN C3;
+        FETCH C3 INTO V_ROW_3;
+    CLOSE C3;
+    BEGIN   
+        IF V_ROW_3 = 0
+        THEN
+            OPEN C1;
+                LOOP
+                    FETCH C1 INTO V_ROW;
+                    EXIT WHEN C1%NOTFOUND;
+                    BEGIN
+                        INSERT INTO EMP_SAL_MAX VALUES
+                        (CURRENT_TIMESTAMP 
+                        , V_ROW.DEPARTMENT
+                        , V_ROW.MAX_SALARY
+                        , CURRENT_TIMESTAMP);
+                    END;
+                END LOOP;
+            CLOSE C1;
+        ELSE
+        OPEN C2;
+        LOOP
+            FETCH C2 INTO V_ROW_2;
+            EXIT WHEN C2%NOTFOUND;
+            BEGIN
                 UPDATE EMP_SAL_MAX A
-                SET
-                A.DEPARTMENT = V_ROW.DEPARTMENT 
-                , A.LAST_LOAD_TS = CURRENT_TIMESTAMP
-                WHERE
-                A.DEPARTMENT = V_ROW.DEPARTMENT;
-                
-            ELSIF V_ROW_2.DEPARTMENT IS NULL
-            THEN
-                DBMS_OUTPUT.PUT_LINE('THE TARGET TABLE IS EMPTY');
-                INSERT INTO EMP_SAL_MAX VALUES
-                (CURRENT_TIMESTAMP 
-                , V_ROW.DEPARTMENT
-                , V_ROW.MAX_SAL
-                , CURRENT_TIMESTAMP);
-                DBMS_OUTPUT.PUT_LINE('ROW INSERTED SUCCESSFULLY!!');
-            END IF;
-        END;
-    END LOOP;
-    CLOSE C1;
-    CLOSE C2;
-    DBMS_OUTPUT.PUT_LINE('CURSOR CLOSES');
+                SET 
+                A.DEPARTMENT = V_ROW_2.DEPARTMENT
+                , A.MAX_SALARY = V_ROW_2.MAX_SALARY
+                , A.LAST_LOAD_TS = CURRENT_TIMESTAMP;
+            END;
+        END LOOP;
+        DBMS_OUTPUT.PUT_LINE('NO RECORDS IN THE TARGET TABLE');
+        CLOSE C2;
+        END IF;
+    END;
+    
 END;
-            
-SELECT * FROM EMP_SAL_MAX;
 
-            
+SELECT * FROM EMP_SAL_MAX;

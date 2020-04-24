@@ -1,7 +1,11 @@
 --creating a new table to store the max salary aggregated across departments
+DROP TABLE EMP_SAL_MAX;
+
 CREATE TABLE EMP_SAL_MAX
-(DEPARMTNET CHAR(3),
- MAX_SALARY NUMBER);
+(CREATED_DATE TIMESTAMP
+, DEPARMTNET CHAR(3)
+, MAX_SALARY NUMBER
+, LAST_LOAD_TS TIMESTAMP);
 
 --delete command to delete all records from the table, if there are any
 DELETE EMP_SAL_MAX;
@@ -26,8 +30,10 @@ BEGIN
         EXIT WHEN C1%NOTFOUND;
         BEGIN
             INSERT INTO EMP_SAL_MAX VALUES
-            (V_ROW.DEPARTMENT,
-             V_ROW.MAX_SAL);
+            (CURRENT_TIMESTAMP 
+            , V_ROW.DEPARTMENT
+            , V_ROW.MAX_SAL
+            , CURRENT_TIMESTAMP);
         END;
         DBMS_OUTPUT.PUT_LINE('ROW INSERTED SUCCESSFULLY!!');
     END LOOP;
@@ -36,4 +42,5 @@ END;
 --reading the data inserted in to the table
 SELECT * FROM EMP_SAL_MAX;
 
+            
             

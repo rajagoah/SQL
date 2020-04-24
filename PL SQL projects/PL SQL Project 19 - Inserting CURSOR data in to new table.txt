@@ -1,7 +1,12 @@
+--creating a new table to store the max salary aggregated across departments
 CREATE TABLE EMP_SAL_MAX
 (DEPARMTNET CHAR(3),
  MAX_SALARY NUMBER);
+
+--delete command to delete all records from the table, if there are any
 DELETE EMP_SAL_MAX;
+
+--declare block to declare cursor and variable to store the data from the cursor
 DECLARE
     CURSOR C1 IS
     SELECT 
@@ -12,6 +17,8 @@ DECLARE
     ORDER BY DEPARTMENT_ID ASC;
     
     V_ROW C1%ROWTYPE;
+
+--begin block where the data from the cursor is inserted into the table
 BEGIN
     OPEN C1;
     LOOP
@@ -25,7 +32,8 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('ROW INSERTED SUCCESSFULLY!!');
     END LOOP;
 END;
-            
+
+--reading the data inserted in to the table
 SELECT * FROM EMP_SAL_MAX;
 
             

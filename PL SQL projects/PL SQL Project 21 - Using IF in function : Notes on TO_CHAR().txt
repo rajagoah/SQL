@@ -1,0 +1,80 @@
+
+The TO_CHAR() function in SQL is a very powerful function.
+
+It can help transforming the following types of input data:
+1. NUMBERS
+2. DATES
+
+EXAMPLES OF:
+NUMBERS:
+
+TO_CHAR(1210.73, '9999.9')
+Result: ' 1210.7'
+
+TO_CHAR(-1210.73, '9999.9')
+Result: '-1210.7'
+
+TO_CHAR(1210.73, '9,999.99')
+Result: ' 1,210.73'
+
+TO_CHAR(1210.73, '$9,999.00')
+Result: ' $1,210.73'
+
+TO_CHAR(21, '000099')
+Result: ' 000021'
+
+DATES:
+PARAMETER	EXPLANATION
+YEAR		Year, spelled out
+YYYY		4-digit year
+YYY
+YY
+Y		Last 3, 2, or 1 digit(s) of year.
+IYY
+IY
+I		Last 3, 2, or 1 digit(s) of ISO year.
+IYYY		4-digit year based on the ISO standard
+Q		Quarter of year (1, 2, 3, 4; JAN-MAR = 1).
+MM		Month (01-12; JAN = 01).
+MON		Abbreviated name of month.
+MONTH		Name of month, padded with blanks to length of 9 characters.
+RM		Roman numeral month (I-XII; JAN = I).
+WW		Week of year (1-53) where week 1 starts on the first day of the year and continues to the seventh day of the year.
+W		Week of month (1-5) where week 1 starts on the first day of the month and ends on the seventh.
+IW		Week of year (1-52 or 1-53) based on the ISO standard.
+D		Day of week (1-7).
+DAY		Name of day.
+DD		Day of month (1-31).
+DDD		Day of year (1-366).
+DY		Abbreviated name of day.
+J		Julian day; the number of days since January 1, 4712 BC.
+HH		Hour of day (1-12).
+HH12		Hour of day (1-12).
+HH24		Hour of day (0-23).
+MI		Minute (0-59).
+SS		Second (0-59).
+SSSSS		Seconds past midnight (0-86399).
+FF		Fractional seconds.
+
+
+********************************************************************************
+			CODE BELOW
+********************************************************************************
+
+
+CREATE OR REPLACE FUNCTION IS_SUNDAY (IN_DATE DATE)
+RETURN VARCHAR2
+IS
+    V_OUT VARCHAR2(100);
+BEGIN
+    IF TO_CHAR(IN_DATE, 'D') = 2 THEN
+        V_OUT := 'YES, ITS A MONDAY';
+    END IF;
+    RETURN V_OUT;
+END;
+
+
+SET SERVEROUTPUT ON
+BEGIN
+DBMS_OUTPUT.PUT_LINE(IS_SUNDAY(SYSDATE));
+END;

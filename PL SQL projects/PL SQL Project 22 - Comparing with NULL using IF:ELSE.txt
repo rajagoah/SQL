@@ -1,0 +1,21 @@
+********************************************************************************
+		CODE BELOW for COMPARING WITH NULL
+********************************************************************************
+CREATE OR REPLACE FUNCTION IS_EQUAL_TO(IN_NUM NUMBER)
+RETURN VARCHAR2
+IS
+    V_OUT VARCHAR2(100);
+BEGIN
+    IF IN_NUM = IN_NUM THEN V_OUT := 'IT IS EQUAL TO ITSELF';
+    ELSIF IN_NUM IS NULL THEN V_OUT := 'IT IS EQUAL TO NULL';
+    ELSIF IN_NUM > 1 THEN V_OUT := 'IT IS GREATER THAN 1';
+    END IF;
+    RETURN V_OUT;
+END;
+
+SET SERVEROUTPUT ON
+DECLARE
+    V_IN_NUM NUMBER;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(IS_EQUAL_TO(V_IN_NUM));
+END;

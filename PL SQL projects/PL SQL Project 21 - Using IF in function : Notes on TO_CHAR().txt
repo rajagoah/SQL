@@ -81,3 +81,60 @@ SET SERVEROUTPUT ON
 BEGIN
 DBMS_OUTPUT.PUT_LINE(IS_SUNDAY(SYSDATE));
 END;
+
+
+
+********************************************************************************
+		CODE BELOW for IF/ELSIF/ELSE STATEMENTS
+********************************************************************************
+
+
+CREATE OR REPLACE FUNCTION IS_MONDAY(IN_DATE DATE)
+RETURN VARCHAR2
+IS
+    V_OUT VARCHAR2(100);
+BEGIN
+    IF TO_CHAR(IN_DATE, 'DAY') LIKE ('%MONDA%') THEN
+        V_OUT := 'YES, ITS MONDAY';
+    ELSIF TO_CHAR(IN_DATE, 'DAY') LIKE ('%TUE%') THEN
+        V_OUT := 'NO, ITS TUESDAY';
+    ELSE
+        V_OUT := 'NO, ITS SOMEOTHER DAY OF THE WEEK';
+    END IF;
+    RETURN V_OUT;
+END;
+
+SET SERVEROUTPUT ON
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(IS_MONDAY(SYSDATE));
+END;
+
+
+********************************************************************************
+		CODE BELOW for CASE STATEMENT
+********************************************************************************
+
+
+
+CREATE OR REPLACE FUNCTION IS_MONDAY(IN_DATE DATE)
+RETURN VARCHAR2
+IS
+    V_OUT VARCHAR2(100);
+    
+BEGIN
+    CASE
+    WHEN TO_CHAR(IN_DATE, 'DAY') LIKE ('%MON%') THEN V_OUT := 'YES, ITS MONDAY';
+    WHEN TO_CHAR(IN_DATE, 'DAY') LIKE ('%TUE%') THEN V_OUT := 'NO, ITS TUESDAY';
+    WHEN TO_CHAR(IN_DATE, 'DAY') LIKE ('%WED%') THEN V_OUT := 'NO, ITS WEDNESDAY';
+    WHEN TO_CHAR(IN_DATE, 'DAY') LIKE ('%THU%') THEN V_OUT := 'NO, ITS THURSDAY';
+    WHEN TO_CHAR(IN_DATE, 'DAY') LIKE ('%FRI%') THEN V_OUT := 'NO, ITS FRIDAY';
+    WHEN TO_CHAR(IN_DATE, 'DAY') LIKE ('%SAT%') THEN V_OUT := 'NO, ITS SATURDAY';
+    WHEN TO_CHAR(IN_DATE, 'DAY') LIKE ('%SUN%') THEN V_OUT := 'NO, ITS SUNDAY';
+    END CASE;
+    RETURN V_OUT;
+END;
+
+SET SERVEROUTPUT ON
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(IS_MONDAY(SYSDATE));
+END;

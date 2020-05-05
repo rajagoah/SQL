@@ -1,0 +1,24 @@
+Types of loops in PL/SQL
+1. Simple loops
+2. While loop
+3. For loop
+
+SYNTAX
+SIMPLE LOOP
+	loop
+	<set of statements>
+	exit when <condition>;
+	<set of statements>
+	end loop;
+
+	or	
+
+
+	loop
+	<set of statements>
+	if <condition> then <operation>;
+	<set of statements>
+	exit;
+	end if;
+	<set of statements>
+	end loop;
